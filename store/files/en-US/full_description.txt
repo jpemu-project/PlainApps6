@@ -1,0 +1,19 @@
+A simple file manager for organizing the files on your phone.
+
+FEATURES
+• Browse internal storage and SD cards
+• Open with other apps, and share
+• Rename, copy, move, delete and create folders
+• Sort by name, date or size; show hidden files
+• Install APK files
+
+ABOUT "ALL FILES ACCESS"
+The app uses this permission to show and organize the files on your device, as a file manager. It has no internet permission, so your files are never sent anywhere.
+
+PRIVACY PROMISE
+• No internet permission. The app has no way to send your data anywhere.
+• No ads, no analytics, no crash reporting, no third-party trackers.
+• No account needed. Everything stays on your device.
+• No automatic cloud backup.
+
+The Secured series is a set of small, lightweight apps that replace the everyday basics without doing anything extra: Camera, Gallery, Videos, Music, Notes, Calendar, Calculator, Alarm and Files.

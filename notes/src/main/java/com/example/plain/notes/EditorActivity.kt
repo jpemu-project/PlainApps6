@@ -12,7 +12,6 @@ import android.text.format.DateUtils
 import android.view.Gravity
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.ScrollView
 
 /**
  * メモの編集画面。入力した内容は自動で保存されます（保存ボタンはありません）。
@@ -75,13 +74,8 @@ class EditorActivity : Activity() {
                 override fun afterTextChanged(s: Editable?) = updateTitle()
             })
         }
-        val scroll = ScrollView(this).apply {
-            isFillViewport = true
-            addView(edit, android.widget.FrameLayout.LayoutParams(
-                android.widget.FrameLayout.LayoutParams.MATCH_PARENT, android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
-            ))
-        }
-        root.addView(scroll, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f))
+        edit.isVerticalScrollBarEnabled = true
+        root.addView(edit, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f))
         setContentView(root)
         updateTitle()
         bar.setSubtitle(existing?.let {

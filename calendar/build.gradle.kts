@@ -6,6 +6,8 @@ plugins {
 }
 
 val appIdPrefix: String by project
+val appVersionCode: String by project
+val appVersionName: String by project
 // GitHub の Secrets に署名鍵を登録すると、その鍵で署名します（無い場合はテスト用のデバッグ鍵）
 val keystorePath: String? = System.getenv("SIGNING_KEYSTORE_PATH")
 
@@ -17,8 +19,8 @@ android {
         applicationId = "$appIdPrefix.calendar"
         minSdk = 29
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = appVersionCode.toInt()
+        versionName = appVersionName
     }
 
     signingConfigs {

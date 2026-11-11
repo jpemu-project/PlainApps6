@@ -1,0 +1,1 @@
+A simple, reliable alarm clock that rings even right after a restart.

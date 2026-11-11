@@ -704,10 +704,20 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun openLink(url: String) {
+        // QRコードは「HTTPS://EXAMPLE.COM」のように大文字で書かれていることが多い。
+        // Androidは「HTTPS」をブラウザのリンクと認識しないため、小文字にそろえてから開く。
+        val uri = Uri.parse(url.trim()).normalizeScheme()
+        val view = Intent(Intent.ACTION_VIEW, uri)
+            .addCategory(Intent.CATEGORY_BROWSABLE)
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         try {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+            startActivity(view)
         } catch (e: Exception) {
-            toast(getString(R.string.no_viewer))
+            try {
+                startActivity(Intent.createChooser(Intent(Intent.ACTION_VIEW, uri), null))
+            } catch (e2: Exception) {
+                toast(getString(R.string.no_viewer))
+            }
         }
     }
 

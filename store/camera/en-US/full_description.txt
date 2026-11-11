@@ -1,0 +1,20 @@
+A camera that does one thing: take photos and videos.
+
+FEATURES
+• Photos and videos, front and back cameras
+• Flash (off / auto / on) and a light for video
+• Pinch to zoom, tap to focus
+• Volume buttons work as the shutter
+• QR code scanner for links, Wi-Fi and text. Links are never opened automatically, so you can check the address first
+• Works when other apps ask for a photo
+
+NO LOCATION DATA
+The app does not even have location permission, so your photos never contain where they were taken.
+
+PRIVACY PROMISE
+• No internet permission. The app has no way to send your data anywhere.
+• No ads, no analytics, no crash reporting, no third-party trackers.
+• No account needed. Everything stays on your device.
+• No automatic cloud backup.
+
+The Secured series is a set of small, lightweight apps that replace the everyday basics without doing anything extra: Camera, Gallery, Videos, Music, Notes, Calendar, Calculator, Alarm and Files.

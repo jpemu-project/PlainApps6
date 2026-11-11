@@ -51,7 +51,9 @@ class Bars(val left: Int, val top: Int, val right: Int, val bottom: Int)
 fun WindowInsets.bars(): Bars =
     if (Build.VERSION.SDK_INT >= 30) {
         val i = getInsets(WindowInsets.Type.systemBars() or WindowInsets.Type.displayCutout())
-        Bars(i.left, i.top, i.right, i.bottom)
+        // キーボードが出ているときは、その高さ分も下を空ける（画面の端まで描く設定では、Androidが自動で縮めてくれないため）
+        val ime = getInsets(WindowInsets.Type.ime())
+        Bars(i.left, i.top, i.right, maxOf(i.bottom, ime.bottom))
     } else {
         Bars(systemWindowInsetLeft, systemWindowInsetTop, systemWindowInsetRight, systemWindowInsetBottom)
     }

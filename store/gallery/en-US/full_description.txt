@@ -1,0 +1,22 @@
+A gallery for browsing the photos and videos on your phone, album by album.
+
+FEATURES
+• Albums and an "All photos" view
+• Pinch or double-tap to zoom, swipe to the next photo
+• Video playback
+• Trash, so deleted photos can be restored
+• Photo details: date, size, resolution
+• Opens photos from other apps
+
+LOCATION REMOVED WHEN SHARING
+When you share a JPEG photo, the app sends a copy with the GPS location and device serial numbers removed. Your original photo is not changed.
+
+Supports Android 14's "selected photos only" access.
+
+PRIVACY PROMISE
+• No internet permission. The app has no way to send your data anywhere.
+• No ads, no analytics, no crash reporting, no third-party trackers.
+• No account needed. Everything stays on your device.
+• No automatic cloud backup.
+
+The Secured series is a set of small, lightweight apps that replace the everyday basics without doing anything extra: Camera, Gallery, Videos, Music, Notes, Calendar, Calculator, Alarm and Files.

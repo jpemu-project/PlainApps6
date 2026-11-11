@@ -1,0 +1,17 @@
+A simple alarm clock that you can rely on.
+
+FEATURES
+• Repeat on chosen weekdays, or ring just once
+• Labels and vibration
+• 10-minute snooze
+• Full-screen alarm over the lock screen
+• Rings after a restart, even before you unlock the phone
+• Shows how long until the next alarm
+
+PRIVACY PROMISE
+• No internet permission. The app has no way to send your data anywhere.
+• No ads, no analytics, no crash reporting, no third-party trackers.
+• No account needed. Everything stays on your device.
+• No automatic cloud backup.
+
+The Secured series is a set of small, lightweight apps that replace the everyday basics without doing anything extra: Camera, Gallery, Videos, Music, Notes, Calendar, Calculator, Alarm and Files.

@@ -70,6 +70,8 @@ sealed class QrContent {
             val t = raw.trim()
             if (t.startsWith("WIFI:", ignoreCase = true)) return parseWifi(t)
             if (OPENABLE.any { t.startsWith(it, ignoreCase = true) }) return Link(t)
+            // 「www.example.com」のように http が省略されたリンク
+            if (t.startsWith("www.", ignoreCase = true) && !t.contains(' ')) return Link("https://$t")
             return Text(raw)
         }
 

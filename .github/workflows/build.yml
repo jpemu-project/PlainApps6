@@ -4,6 +4,9 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,6 +20,7 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
+      # 署名鍵（任意）。Settings > Secrets and variables > Actions に KEYSTORE_BASE64 などを登録すると使われます。
       - name: Prepare signing key
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
@@ -36,25 +40,45 @@ jobs:
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
         run: |
           chmod +x gradlew
-          ./gradlew assembleRelease --continue
+          ./gradlew assembleRelease bundleRelease --continue
 
+      # エラーがあったアプリがあっても、できたAPKは集めてダウンロードできるようにする
       - name: Collect APKs
         if: always()
         run: |
           mkdir -p out
+          mkdir -p aab
           for m in camera gallery video music notes calendar calculator alarm files; do
+            name="$(echo ${m:0:1} | tr a-z A-Z)${m:1}"
             f=$(ls $m/build/outputs/apk/release/*.apk 2>/dev/null | head -1)
-            if [ -n "$f" ]; then
-              name="$(echo ${m:0:1} | tr a-z A-Z)${m:1}"
-              cp "$f" "out/$name.apk"
-            else
-              echo "::warning::$m のAPKは作られませんでした"
-            fi
+            if [ -n "$f" ]; then cp "$f" "out/$name.apk"; else echo "::warning::$m のAPKは作られませんでした"; fi
+            b=$(ls $m/build/outputs/bundle/release/*.aab 2>/dev/null | head -1)
+            if [ -n "$b" ]; then cp "$b" "aab/$name.aab"; fi
           done
-          ls -la out
+          ls -la out aab
 
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: PlainApps-apk
           path: out/*.apk
+
+      # Google Play に提出するファイル（署名鍵を登録している場合だけ作る）
+      - uses: actions/upload-artifact@v4
+        if: always() && env.SIGNING_KEYSTORE_PATH != ''
+        with:
+          name: PlainApps-aab-for-google-play
+          path: aab/*.aab
+
+      # できたAPKを別ブランチに置く（ダウンロードしやすくするため）
+      - name: Publish APKs to a branch
+        if: always() && github.ref_name == 'claude/build-apk-1111'
+        run: |
+          cd out
+          git init -q
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git checkout -q -b apk-output
+          git add *.apk
+          git commit -q -m "APKs from run ${{ github.run_id }}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" apk-output

@@ -1,0 +1,19 @@
+A simple notepad for writing things down.
+
+FEATURES
+• Saves automatically, with no save button
+• The first line becomes the title in the list
+• Search across all your notes
+• Share a note
+• Share text from other apps to create a new note
+
+NO PERMISSIONS AT ALL
+Notes are stored in the app's private storage, which other apps cannot read. Note contents are hidden from the recent apps screen on Android 13 and later.
+
+PRIVACY PROMISE
+• No internet permission. The app has no way to send your data anywhere.
+• No ads, no analytics, no crash reporting, no third-party trackers.
+• No account needed. Everything stays on your device.
+• No automatic cloud backup.
+
+The Secured series is a set of small, lightweight apps that replace the everyday basics without doing anything extra: Camera, Gallery, Videos, Music, Notes, Calendar, Calculator, Alarm and Files.

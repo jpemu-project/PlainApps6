@@ -1,0 +1,1 @@
+A file manager with no internet access. Your files never leave your phone.

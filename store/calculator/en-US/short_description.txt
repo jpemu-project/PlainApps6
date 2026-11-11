@@ -1,0 +1,1 @@
+A simple calculator with exact decimal math. No permissions, no internet.

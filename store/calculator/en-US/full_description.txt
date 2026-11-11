@@ -1,0 +1,18 @@
+A simple calculator for everyday math.
+
+FEATURES
+• Add, subtract, multiply, divide, parentheses and percent
+• Shows the result as you type
+• Exact decimal math, so 0.1 + 0.2 is exactly 0.3
+• Long-press ⌫ to clear everything
+• Works in landscape
+
+Uses no permissions at all.
+
+PRIVACY PROMISE
+• No internet permission. The app has no way to send your data anywhere.
+• No ads, no analytics, no crash reporting, no third-party trackers.
+• No account needed. Everything stays on your device.
+• No automatic cloud backup.
+
+The Secured series is a set of small, lightweight apps that replace the everyday basics without doing anything extra: Camera, Gallery, Videos, Music, Notes, Calendar, Calculator, Alarm and Files.

@@ -1,0 +1,1 @@
+A simple camera that never records your location and never goes online.

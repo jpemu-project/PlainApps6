@@ -1,0 +1,1 @@
+A clean photo gallery that strips location data when you share a photo.

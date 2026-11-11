@@ -1,0 +1,17 @@
+A simple player that lists and plays the videos stored on your phone.
+
+FEATURES
+• All your videos, newest first, with folder filters
+• Resume where you left off
+• Playback speed from 0.5x to 2x
+• Double-tap left or right to skip 10 seconds
+• Landscape videos rotate automatically
+• Opens videos from other apps
+
+PRIVACY PROMISE
+• No internet permission. The app has no way to send your data anywhere.
+• No ads, no analytics, no crash reporting, no third-party trackers.
+• No account needed. Everything stays on your device.
+• No automatic cloud backup.
+
+The Secured series is a set of small, lightweight apps that replace the everyday basics without doing anything extra: Camera, Gallery, Videos, Music, Notes, Calendar, Calculator, Alarm and Files.
