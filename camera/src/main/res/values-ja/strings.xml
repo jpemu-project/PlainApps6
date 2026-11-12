@@ -31,4 +31,7 @@
     <string name="qr_copy_password">パスワードをコピー</string>
     <string name="qr_wifi_settings">Wi-Fi設定</string>
     <string name="copied">コピーしました</string>
+    <string name="shutter_sound">シャッター音</string>
+    <string name="sound_on">音あり</string>
+    <string name="sound_off">音なし</string>
 </resources>

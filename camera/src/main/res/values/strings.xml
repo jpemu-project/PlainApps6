@@ -31,4 +31,7 @@
     <string name="qr_copy_password">Copy password</string>
     <string name="qr_wifi_settings">Wi-Fi settings</string>
     <string name="copied">Copied</string>
+    <string name="shutter_sound">Shutter sound</string>
+    <string name="sound_on">Sound on</string>
+    <string name="sound_off">Sound off</string>
 </resources>

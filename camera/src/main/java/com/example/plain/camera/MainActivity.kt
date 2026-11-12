@@ -68,6 +68,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var thumb: ImageView
     private lateinit var flip: ImageView
     private lateinit var flashBtn: TextView
+    private lateinit var soundBtn: TextView
     private lateinit var modePhoto: TextView
     private lateinit var modeVideo: TextView
     private lateinit var modeQr: TextView
@@ -93,6 +94,19 @@ class MainActivity : ComponentActivity() {
     private var busy = false
 
     private val sound = MediaActionSound()
+
+    /**
+     * この端末でシャッター音が必須か。
+     * 日本・韓国向けの端末などは、盗撮防止のためメーカーが音を必須にしている。その場合は消せないようにする。
+     * Android 12以前は確かめる方法がないため、必須として扱う。
+     */
+    private val soundForced: Boolean =
+        Build.VERSION.SDK_INT < 33 || MediaActionSound.mustPlayShutterSound()
+    private var soundOn = true
+
+    private fun playSound(kind: Int) {
+        if (soundOn || soundForced) sound.play(kind)
+    }
     private val io = Executors.newSingleThreadExecutor()
     private val analysisExecutor = Executors.newSingleThreadExecutor()
 
@@ -124,6 +138,7 @@ class MainActivity : ComponentActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         val prefs = getSharedPreferences("camera", Context.MODE_PRIVATE)
         flashMode = prefs.getInt("flash", ImageCapture.FLASH_MODE_OFF)
+        soundOn = soundForced || prefs.getBoolean("sound", true)
         if (intent.action == MediaStore.INTENT_ACTION_VIDEO_CAMERA) videoMode = true
         sound.load(MediaActionSound.SHUTTER_CLICK)
 
@@ -172,6 +187,21 @@ class MainActivity : ComponentActivity() {
             setOnClickListener { cycleFlash() }
         }
         top.addView(flashBtn)
+        // シャッター音のオン・オフ（音が必須でない端末だけ表示）
+        soundBtn = label("", 14f, true, Color.WHITE).apply {
+            gravity = Gravity.CENTER_VERTICAL
+            background = pressable(0x55000000, 20)
+            setPadding(dp(14), dp(8), dp(14), dp(8))
+            visibility = if (soundForced) View.GONE else View.VISIBLE
+            setOnClickListener {
+                soundOn = !soundOn
+                getSharedPreferences("camera", Context.MODE_PRIVATE).edit().putBoolean("sound", soundOn).apply()
+                updateUi()
+            }
+        }
+        top.addView(soundBtn, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
+            marginStart = dp(8)
+        })
         top.addView(View(this), LinearLayout.LayoutParams(0, 1, 1f))
         recTime = label("", 15f, true, Color.WHITE).apply {
             background = rounded(0x99000000.toInt(), 14)
@@ -362,7 +392,7 @@ class MainActivity : ComponentActivity() {
         val ic = imageCapture ?: return
         if (busy) return
         busy = true
-        sound.play(MediaActionSound.SHUTTER_CLICK)
+        playSound(MediaActionSound.SHUTTER_CLICK)
         flashOverlay.alpha = 0.8f
         flashOverlay.animate().alpha(0f).setDuration(200).start()
 
@@ -496,14 +526,14 @@ class MainActivity : ComponentActivity() {
             recording = pending.start(mainExecutor) { event ->
                 when (event) {
                     is VideoRecordEvent.Start -> {
-                        sound.play(MediaActionSound.START_VIDEO_RECORDING)
+                        playSound(MediaActionSound.START_VIDEO_RECORDING)
                         updateUi()
                     }
                     is VideoRecordEvent.Status -> {
                         recTime.text = "● " + timeText(TimeUnit.NANOSECONDS.toMillis(event.recordingStats.recordedDurationNanos))
                     }
                     is VideoRecordEvent.Finalize -> {
-                        sound.play(MediaActionSound.STOP_VIDEO_RECORDING)
+                        playSound(MediaActionSound.STOP_VIDEO_RECORDING)
                         recording = null
                         if (event.hasError() && event.error != VideoRecordEvent.Finalize.ERROR_NONE) {
                             toast(getString(R.string.save_failed))
@@ -610,6 +640,8 @@ class MainActivity : ComponentActivity() {
             },
         )
 
+        soundBtn.text = getString(if (soundOn) R.string.sound_on else R.string.sound_off)
+        soundBtn.contentDescription = getString(R.string.shutter_sound)
         val hasFlash = camera?.cameraInfo?.hasFlashUnit() ?: false
         flashBtn.visibility = if (hasFlash) View.VISIBLE else View.INVISIBLE
         flashBtn.text = if (videoMode || qrMode) {
@@ -669,7 +701,7 @@ class MainActivity : ComponentActivity() {
             qrAnalyzer.paused = false
             return
         }
-        sound.play(MediaActionSound.FOCUS_COMPLETE)
+        playSound(MediaActionSound.FOCUS_COMPLETE)
         val b = AlertDialog.Builder(this)
         when (val c = QrContent.parse(raw)) {
             is QrContent.Link -> {
